@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -696,41 +696,11 @@
         </div>
     </footer>
     
+    <script src="shared.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Check authentication
-            function checkAuth() {
-                const user = localStorage.getItem('user');
-                const accountBtn = document.querySelector('.account-btn');
-                
-                if (user) {
-                    // User is logged in, change account button to profile
-                    accountBtn.onclick = function() {
-                        window.location.href = 'profile.html';
-                    };
-                    accountBtn.innerHTML = '<i class="fas fa-user"></i>';
-                } else {
-                    // User is not logged in, keep login functionality
-                    accountBtn.onclick = function() {
-                        window.location.href = 'login.html';
-                    };
-                    accountBtn.innerHTML = '<i class="fas fa-user"></i>';
-                }
-            }
-            
-            // Cart functionality
-            const cartCount = document.querySelector('.cart-count');
-            
-            // Load cart from localStorage and update count
-            function updateCartCount() {
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
-                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-                cartCount.textContent = totalItems;
-            }
-            
-            // Initialize
-            checkAuth();
-            updateCartCount();
+            // Initialize common header
+            initCommonHeader();
             
             // Video play functionality
             const playButton = document.querySelector('.play-button');
@@ -772,15 +742,23 @@
                 });
             });
             
-            // Header scroll effect
-            window.addEventListener('scroll', function() {
-                const header = document.querySelector('.main-header');
-                if (window.scrollY > 100) {
-                    header.style.backgroundColor = 'rgba(255,255,255,0.95)';
-                    header.style.backdropFilter = 'blur(10px)';
-                } else {
-                    header.style.backgroundColor = '#fff';
-                    header.style.backdropFilter = 'none';
+            // Wire Add to Cart buttons for homepage products
+            document.querySelectorAll('.product-card').forEach(card => {
+                const name = card.querySelector('.product-name')?.textContent?.trim();
+                const addBtn = card.querySelector('.add-to-cart-btn');
+                if (name && addBtn) {
+                    addBtn.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const selectedColorEl = card.querySelector('.color-option.selected');
+                        const color = selectedColorEl ? selectedColorEl.getAttribute('title') : undefined;
+                        addToCart(name, color);
+                        this.textContent = 'Added!';
+                        this.style.backgroundColor = '#28a745';
+                        setTimeout(() => {
+                            this.textContent = 'Add to Cart';
+                            this.style.backgroundColor = '#000';
+                        }, 1000);
+                    });
                 }
             });
         });

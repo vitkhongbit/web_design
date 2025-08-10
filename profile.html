@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -294,6 +294,7 @@
         </div>
     </footer>
     
+    <script src="shared.js"></script>
     <script>
         function toggleUserMenu() {
             // Simple logout functionality
@@ -310,7 +311,10 @@
             if (!user) {
                 // Redirect to login if not logged in
                 window.location.href = 'login.html';
+                return;
             }
+            // Initialize cart count on header-like elements if any future reuse
+            updateCartCountDom();
         });
     </script>
 </body>
