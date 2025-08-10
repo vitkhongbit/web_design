@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Primo Cycles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        .announcement-bar {
+            background-color: #000;
+            color: #fff;
+            padding: 12px 0;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .main-header {
+            background-color: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+        
+        .main-nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+        
+        .main-nav a:hover {
+            color: #666;
+        }
+        
+        .main-nav a.active {
+            color: #000;
+            font-weight: 600;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .search-btn, .account-btn, .cart-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #333;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .search-btn:hover, .account-btn:hover, .cart-btn:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #000;
+            color: white;
+            font-size: 10px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .cart-btn {
+            position: relative;
+        }
+        
+        /* About Hero Section */
+        .about-hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1571068316344-75bc76f77890?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .about-hero h1 {
+            font-size: 64px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+        
+        .about-hero p {
+            font-size: 20px;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* About Content */
+        .about-section {
+            padding: 100px 0;
+            background-color: #fff;
+        }
+        
+        .about-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            margin-bottom: 100px;
+        }
+        
+        .about-text h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: -1px;
+        }
+        
+        .about-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .about-image {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        /* Values Section */
+        .values-section {
+            padding: 100px 0;
+            background-color: #fafafa;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-title h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        
+        .section-title p {
+            font-size: 18px;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        
+        .value-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .value-icon {
+            font-size: 48px;
+            color: #000;
+            margin-bottom: 30px;
+        }
+        
+        .value-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .value-card p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        /* Team Section */
+        .team-section {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .team-text h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: -1px;
+        }
+        
+        .team-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .team-image {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .team-image img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background-color: #000;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .cta-content h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: -1px;
+        }
+        
+        .cta-content p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: #ccc;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: white;
+            color: #000;
+            padding: 16px 32px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: 2px solid white;
+        }
+        
+        .cta-button:hover {
+            background-color: transparent;
+            color: white;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #f5f5f5;
+            padding: 80px 0 40px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-col h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-col ul li a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: #000;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #e5e5e5;
+            padding-top: 40px;
+            text-align: center;
+            color: #666;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .about-grid, .team-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .values-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 48px;
+            }
+            
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-nav {
+                display: none;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        Pre-order now: all sizes and colors of the Dame arriving soon, including size S!!
+    </div>
+    
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container header-container">
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="aboutus.html" class="active">About Us</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                </ul>
+            </nav>
+            
+            <a href="index.html" class="logo">PRIMO CYCLES</a>
+            
+            <div class="header-actions">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="account-btn" onclick="window.location.href='login.html'">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button class="cart-btn" onclick="window.location.href='cart.html'">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- About Hero -->
+    <section class="about-hero">
+        <div>
+            <h1>WE ARE PRIMOS</h1>
+            <p>Born in Portland, OR, Primos Cycles was founded by two bike enthusiasts who share a deep love for all things cycling.</p>
+        </div>
+    </section>
+    
+    <!-- About Content -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text">
+                    <h2>Our Story</h2>
+                    <p>Primo Cycles was born from a simple passion: the love of cycling. Founded in Portland, Oregon, by two lifelong bike enthusiasts, we set out to create bicycles that combine innovation, performance, and timeless design.</p>
+                    <p>Every bike we create is crafted with attention to detail, using the finest materials and cutting-edge technology to ensure the best riding experience for our customers. We believe that cycling is more than just transportation – it's a way of life.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Workshop">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Values</h2>
+                <p>The principles that guide everything we do at Primo Cycles</p>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>Quality Craftsmanship</h3>
+                    <p>Every bike is meticulously crafted using premium materials and state-of-the-art technology to ensure exceptional performance and durability.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Passion for Cycling</h3>
+                    <p>We're not just building bikes – we're creating experiences that inspire people to explore, adventure, and fall in love with cycling.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Sustainability</h3>
+                    <p>We're committed to environmental responsibility, using eco-friendly materials and sustainable manufacturing processes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <div class="team-grid">
+                <div class="team-text">
+                    <h2>Meet the Founders</h2>
+                    <p>Our founders, Alex and Sarah, met while racing in Portland's competitive cycling scene. Their shared vision of creating accessible, high-quality bicycles led to the birth of Primo Cycles in 2020.</p>
+                    <p>With over 20 years of combined experience in cycling and engineering, they bring their passion and expertise to every bike we create. Their goal is simple: to make exceptional cycling accessible to everyone.</p>
+                </div>
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Our Founders">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Join the Primo Family</h2>
+                <p>Ready to experience the difference? Discover our collection of premium bicycles and become part of the Primo Cycles community.</p>
+                <a href="index.html#products" class="cta-button">Explore Our Bikes</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Help & Support</h3>
+                    <ul>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Warranty</a></li>
+                        <li><a href="#">Return & Refund Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><strong>Email:</strong> hi@primocycles.com</li>
+                        <li><strong>Phone:</strong> +1 626 346 6911</li>
+                        <li><strong>Support Hours:</strong><br>Monday to Friday, 9:00 AM – 5:00 PM</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Payment Methods</h3>
+                    <ul>
+                        <li>Visa</li>
+                        <li>Mastercard</li>
+                        <li>American Express</li>
+                        <li>PayPal</li>
+                        <li>Apple Pay</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Primo Cycles. Made in Portland</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            function checkAuth() {
+                const user = localStorage.getItem('user');
+                const accountBtn = document.querySelector('.account-btn');
+                
+                if (user) {
+                    // User is logged in, change account button to profile
+                    accountBtn.onclick = function() {
+                        window.location.href = 'profile.html';
+                    };
+                    accountBtn.innerHTML = '<i class="fas fa-user"></i>';
+                } else {
+                    // User is not logged in, keep login functionality
+                    accountBtn.onclick = function() {
+                        window.location.href = 'login.html';
+                    };
+                    accountBtn.innerHTML = '<i class="fas fa-user"></i>';
+                }
+            }
+            
+            // Cart functionality
+            const cartCount = document.querySelector('.cart-count');
+            
+            // Load cart from localStorage and update count
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = totalItems;
+            }
+            
+            // Initialize
+            checkAuth();
+            updateCartCount();
+            
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.main-header');
+                if (window.scrollY > 100) {
+                    header.style.backgroundColor = 'rgba(255,255,255,0.95)';
+                    header.style.backdropFilter = 'blur(10px)';
+                } else {
+                    header.style.backgroundColor = '#fff';
+                    header.style.backdropFilter = 'none';
+                }
+            });
+            
+            // Smooth scrolling for navigation links
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

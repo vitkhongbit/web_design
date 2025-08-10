@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Primo Cycles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        .announcement-bar {
+            background-color: #000;
+            color: #fff;
+            padding: 12px 0;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .main-header {
+            background-color: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+        
+        .main-nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+        
+        .main-nav a:hover {
+            color: #666;
+        }
+        
+        .main-nav a.active {
+            color: #000;
+            font-weight: 600;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .search-btn, .account-btn, .cart-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #333;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .search-btn:hover, .account-btn:hover, .cart-btn:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #000;
+            color: white;
+            font-size: 10px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .cart-btn {
+            position: relative;
+        }
+        
+        /* Cart Page Header */
+        .cart-header {
+            background-color: #fafafa;
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+        
+        .cart-header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        
+        .cart-header p {
+            font-size: 18px;
+            color: #666;
+        }
+        
+        /* Cart Content */
+        .cart-content {
+            padding: 60px 0;
+        }
+        
+        .cart-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+        }
+        
+        /* Cart Items */
+        .cart-items {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        
+        .cart-item {
+            display: grid;
+            grid-template-columns: 120px 1fr auto;
+            gap: 20px;
+            padding: 30px;
+            border-bottom: 1px solid #f0f0f0;
+            align-items: center;
+        }
+        
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+        
+        .item-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .item-details h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .item-color {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .item-price {
+            font-size: 18px;
+            font-weight: 600;
+            color: #000;
+        }
+        
+        .item-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        
+        .quantity-btn {
+            background: none;
+            border: none;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .quantity-btn:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            border: none;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .remove-btn {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: underline;
+            transition: color 0.3s;
+        }
+        
+        .remove-btn:hover {
+            color: #c0392b;
+        }
+        
+        /* Cart Summary */
+        .cart-summary {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            padding: 30px;
+            height: fit-content;
+            position: sticky;
+            top: 120px;
+        }
+        
+        .summary-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .summary-row.total {
+            font-size: 20px;
+            font-weight: 700;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+        
+        .checkout-btn {
+            width: 100%;
+            background-color: #000;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+        
+        .checkout-btn:hover {
+            background-color: #333;
+        }
+        
+        .checkout-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        /* Empty Cart */
+        .empty-cart {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        
+        .empty-cart i {
+            font-size: 64px;
+            color: #ddd;
+            margin-bottom: 30px;
+        }
+        
+        .empty-cart h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .empty-cart p {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        
+        .continue-shopping {
+            display: inline-block;
+            background-color: #000;
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        .continue-shopping:hover {
+            background-color: #333;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #f5f5f5;
+            padding: 80px 0 40px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-col h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-col ul li a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: #000;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #e5e5e5;
+            padding-top: 40px;
+            text-align: center;
+            color: #666;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .cart-summary {
+                position: static;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .cart-item {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .item-actions {
+                align-items: flex-start;
+            }
+            
+            .main-nav {
+                display: none;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        Pre-order now: all sizes and colors of the Dame arriving soon, including size S!!
+    </div>
+    
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container header-container">
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                </ul>
+            </nav>
+            
+            <a href="index.html" class="logo">PRIMO CYCLES</a>
+            
+            <div class="header-actions">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="account-btn" onclick="window.location.href='login.html'">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button class="cart-btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Cart Header -->
+    <section class="cart-header">
+        <div class="container">
+            <h1>Your Cart</h1>
+            <p>Review your items and proceed to checkout</p>
+        </div>
+    </section>
+    
+    <!-- Cart Content -->
+    <section class="cart-content">
+        <div class="container">
+            <div class="cart-container">
+                <!-- Cart Items -->
+                <div class="cart-items" id="cartItems">
+                    <!-- Cart items will be dynamically added here -->
+                </div>
+                
+                <!-- Cart Summary -->
+                <div class="cart-summary">
+                    <h3 class="summary-title">Order Summary</h3>
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="subtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span id="shipping">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax</span>
+                        <span id="tax">$0.00</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span id="total">$0.00</span>
+                    </div>
+                    <button class="checkout-btn" id="checkoutBtn" disabled>
+                        Proceed to Checkout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Help & Support</h3>
+                    <ul>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Warranty</a></li>
+                        <li><a href="#">Return & Refund Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><strong>Email:</strong> hi@primocycles.com</li>
+                        <li><strong>Phone:</strong> +1 626 346 6911</li>
+                        <li><strong>Support Hours:</strong><br>Monday to Friday, 9:00 AM – 5:00 PM</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Payment Methods</h3>
+                    <ul>
+                        <li>Visa</li>
+                        <li>Mastercard</li>
+                        <li>American Express</li>
+                        <li>PayPal</li>
+                        <li>Apple Pay</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Primo Cycles. Made in Portland</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Cart data structure
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        
+        // Product data
+        const products = {
+            'Dame': {
+                name: 'Dame',
+                price: 899,
+                image: 'https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                colors: ['Grey Ash', 'Mustard', 'Metal Rhapsody']
+            },
+            'Mono': {
+                name: 'Mono',
+                price: 799,
+                image: 'https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                colors: ['Amazonian Blue', 'Dusty Rose']
+            },
+            'Framesets': {
+                name: 'Framesets',
+                price: 399,
+                image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                colors: ['Grey Ash', 'Metal Rhapsody', 'Mustard']
+            },
+            'Trail Master': {
+                name: 'Trail Master',
+                price: 1200,
+                image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                colors: ['Midnight Black', 'Racing Red']
+            },
+            'Speed Demon': {
+                name: 'Speed Demon',
+                price: 950,
+                image: 'https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                colors: ['Ocean Blue', 'Sunset Orange']
+            },
+            'Adventure Pro': {
+                name: 'Adventure Pro',
+                price: 1100,
+                image: 'https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                colors: ['Forest Green', 'Royal Purple']
+            }
+        };
+        
+        // Update cart count
+        function updateCartCount() {
+            const cartCount = document.querySelector('.cart-count');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+        }
+        
+        // Render cart items
+        function renderCart() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <h2>Your cart is empty</h2>
+                        <p>Looks like you haven't added any items to your cart yet.</p>
+                        <a href="products.html" class="continue-shopping">Continue Shopping</a>
+                    </div>
+                `;
+                updateSummary();
+                return;
+            }
+            
+            cartItemsContainer.innerHTML = cart.map((item, index) => `
+                <div class="cart-item" data-index="${index}">
+                    <div class="item-image">
+                        <img src="${products[item.name].image}" alt="${item.name}">
+                    </div>
+                    <div class="item-details">
+                        <h3>${item.name}</h3>
+                        <div class="item-color">Color: ${item.color}</div>
+                        <div class="item-price">$${products[item.name].price.toFixed(2)}</div>
+                    </div>
+                    <div class="item-actions">
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" onchange="setQuantity(${index}, this.value)">
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                        </div>
+                        <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+            
+            updateSummary();
+        }
+        
+        // Update quantity
+        function updateQuantity(index, change) {
+            const newQuantity = cart[index].quantity + change;
+            if (newQuantity >= 1) {
+                cart[index].quantity = newQuantity;
+                saveCart();
+                renderCart();
+            }
+        }
+        
+        // Set quantity directly
+        function setQuantity(index, value) {
+            const quantity = parseInt(value);
+            if (quantity >= 1) {
+                cart[index].quantity = quantity;
+                saveCart();
+                renderCart();
+            }
+        }
+        
+        // Remove item
+        function removeItem(index) {
+            cart.splice(index, 1);
+            saveCart();
+            renderCart();
+            updateCartCount();
+        }
+        
+        // Update summary
+        function updateSummary() {
+            const subtotal = cart.reduce((sum, item) => sum + (products[item.name].price * item.quantity), 0);
+            const shipping = subtotal > 0 ? 15 : 0;
+            const tax = subtotal * 0.08; // 8% tax
+            const total = subtotal + shipping + tax;
+            
+            document.getElementById('subtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('shipping').textContent = `$${shipping.toFixed(2)}`;
+            document.getElementById('tax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+            
+            // Enable/disable checkout button
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            checkoutBtn.disabled = cart.length === 0;
+        }
+        
+        // Save cart to localStorage
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+        
+        // Initialize cart
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            function checkAuth() {
+                const user = localStorage.getItem('user');
+                const accountBtn = document.querySelector('.account-btn');
+                
+                if (user) {
+                    // User is logged in, change account button to profile
+                    accountBtn.onclick = function() {
+                        window.location.href = 'profile.html';
+                    };
+                    accountBtn.innerHTML = '<i class="fas fa-user"></i>';
+                } else {
+                    // User is not logged in, keep login functionality
+                    accountBtn.onclick = function() {
+                        window.location.href = 'login.html';
+                    };
+                    accountBtn.innerHTML = '<i class="fas fa-user"></i>';
+                }
+            }
+            
+            checkAuth();
+            renderCart();
+            updateCartCount();
+            
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.main-header');
+                if (window.scrollY > 100) {
+                    header.style.backgroundColor = 'rgba(255,255,255,0.95)';
+                    header.style.backdropFilter = 'blur(10px)';
+                } else {
+                    header.style.backgroundColor = '#fff';
+                    header.style.backdropFilter = 'none';
+                }
+            });
+            
+            // Checkout button
+            document.getElementById('checkoutBtn').addEventListener('click', function() {
+                alert('Thank you for your order! This is a demo site.');
+                cart = [];
+                saveCart();
+                renderCart();
+                updateCartCount();
+            });
+        });
+    </script>
+</body>
+</html> 

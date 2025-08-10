@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primo Cycles - Premium Bicycle Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        .announcement-bar {
+            background-color: #000;
+            color: #fff;
+            padding: 12px 0;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .main-header {
+            background-color: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #000;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+        
+        .main-nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+        
+        .main-nav a:hover {
+            color: #666;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .search-btn, .account-btn, .cart-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #333;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .search-btn:hover, .account-btn:hover, .cart-btn:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #000;
+            color: white;
+            font-size: 10px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        
+        .cart-btn {
+            position: relative;
+        }
+        
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+        
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 20px;
+            z-index: 1;
+        }
+        
+        .hero-subtitle {
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .hero-title {
+            font-size: 64px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            line-height: 1.1;
+            letter-spacing: -1px;
+        }
+        
+        .hero-description {
+            font-size: 20px;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #000;
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border: 2px solid #000;
+        }
+        
+        .cta-button:hover {
+            background-color: transparent;
+            color: #000;
+        }
+        
+        /* Products Section */
+        .products-section {
+            padding: 100px 0;
+            background-color: #fafafa;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-title h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        
+        .section-title p {
+            font-size: 18px;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            height: 300px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .product-info {
+            padding: 30px;
+        }
+        
+        .product-name {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            font-size: 20px;
+            font-weight: 500;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .product-colors {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .color-option {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 1px #ddd;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .color-option:hover {
+            transform: scale(1.2);
+        }
+        
+        .add-to-cart-btn {
+            width: 100%;
+            background-color: #000;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .add-to-cart-btn:hover {
+            background-color: #333;
+        }
+        
+        /* About Section */
+        .about-section {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .about-text h2 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            letter-spacing: -1px;
+        }
+        
+        .about-text p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .about-video {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .about-video video {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .play-button:hover {
+            background-color: white;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .play-button i {
+            font-size: 24px;
+            color: #000;
+            margin-left: 5px;
+        }
+        
+        /* Newsletter Section */
+        .newsletter-section {
+            background-color: #000;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .newsletter-content h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .newsletter-content p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            color: #ccc;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+        
+        .newsletter-input {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .newsletter-btn {
+            background-color: white;
+            color: #000;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .newsletter-btn:hover {
+            background-color: #f5f5f5;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #f5f5f5;
+            padding: 80px 0 40px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .footer-col h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+        
+        .footer-col ul {
+            list-style: none;
+        }
+        
+        .footer-col ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-col ul li a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col ul li a:hover {
+            color: #000;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #e5e5e5;
+            padding-top: 40px;
+            text-align: center;
+            color: #666;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 48px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-nav {
+                display: none;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        Pre-order now: all sizes and colors of the Dame arriving soon, including size S!!
+    </div>
+    
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container header-container">
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                </ul>
+            </nav>
+            
+            <a href="index.html" class="logo">PRIMO CYCLES</a>
+            
+            <div class="header-actions">
+                <button class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+                <button class="account-btn" onclick="window.location.href='login.html'">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button class="cart-btn" onclick="window.location.href='cart.html'">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <video class="hero-video" autoplay muted loop>
+            <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c27eecc69a27dbc4ff2b87d38afc35f1a9e7c02d&profile_id=139&oauth2_token_id=57447761" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-subtitle">peace of mind and thrill</div>
+            <h1 class="hero-title">THE NEW GRAVEL<br>BIKE IN TOWN</h1>
+            <p class="hero-description">Go anywhere</p>
+            <a href="#products" class="cta-button">FIND MY PRIMOS</a>
+        </div>
+    </section>
+    
+    <!-- Products Section -->
+    <section id="products" class="products-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Premium Bikes</h2>
+                <p>Discover our collection of high-quality bicycles designed for every adventure</p>
+            </div>
+            
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="product-info">
+                        <h3 class="product-name">Dame</h3>
+                        <div class="product-price">$899.00 USD</div>
+                        <div class="product-colors">
+                            <div class="color-option" style="background-color: #8B7355;" title="Grey Ash"></div>
+                            <div class="color-option" style="background-color: #FFD700;" title="Mustard"></div>
+                            <div class="color-option" style="background-color: #C0C0C0;" title="Metal Rhapsody"></div>
+                        </div>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="product-info">
+                        <h3 class="product-name">Mono</h3>
+                        <div class="product-price">$799.00 USD</div>
+                        <div class="product-colors">
+                            <div class="color-option" style="background-color: #0066CC;" title="Amazonian Blue"></div>
+                            <div class="color-option" style="background-color: #E8B4B8;" title="Dusty Rose"></div>
+                        </div>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1571068316344-75bc76f77890?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+                    <div class="product-info">
+                        <h3 class="product-name">Framesets</h3>
+                        <div class="product-price">$399.00 USD</div>
+                        <div class="product-colors">
+                            <div class="color-option" style="background-color: #8B7355;" title="Grey Ash"></div>
+                            <div class="color-option" style="background-color: #C0C0C0;" title="Metal Rhapsody"></div>
+                            <div class="color-option" style="background-color: #FFD700;" title="Mustard"></div>
+                        </div>
+                        <button class="add-to-cart-btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>WE ARE PRIMOS</h2>
+                    <p>Born in Portland, OR, Primos Cycles was founded by two bike enthusiasts who share a deep love for all things cycling. Our mission is to create premium bicycles that combine innovation, performance, and style.</p>
+                    <p>Every bike we create is crafted with attention to detail, using the finest materials and cutting-edge technology to ensure the best riding experience for our customers.</p>
+                    <a href="aboutus.html" class="cta-button">MEET THE CREATORS</a>
+                </div>
+                
+                <div class="about-video">
+                    <video muted loop>
+                        <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c27eecc69a27dbc4ff2b87d38afc35f1a9e7c02d&profile_id=139&oauth2_token_id=57447761" type="video/mp4">
+                    </video>
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Early birds ride first. Claim yours now!</h2>
+                <p>Subscribe to our newsletter for exclusive updates and early access to new releases.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Enter your email address">
+                    <button type="submit" class="newsletter-btn">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>Help & Support</h3>
+                    <ul>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Warranty</a></li>
+                        <li><a href="#">Return & Refund Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Connect With Us</h3>
+                    <ul>
+                        <li><strong>Email:</strong> hi@primocycles.com</li>
+                        <li><strong>Phone:</strong> +1 626 346 6911</li>
+                        <li><strong>Support Hours:</strong><br>Monday to Friday, 9:00 AM – 5:00 PM</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="aboutus.html">About Us</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Order Tracking</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Payment Methods</h3>
+                    <ul>
+                        <li>Visa</li>
+                        <li>Mastercard</li>
+                        <li>American Express</li>
+                        <li>PayPal</li>
+                        <li>Apple Pay</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Primo Cycles. Made in Portland</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            function checkAuth() {
+                const user = localStorage.getItem('user');
+                const accountBtn = document.querySelector('.account-btn');
+                
+                if (user) {
+                    // User is logged in, change account button to profile
+                    accountBtn.onclick = function() {
+                        window.location.href = 'profile.html';
+                    };
+                    accountBtn.innerHTML = '<i class="fas fa-user"></i>';
+                } else {
+                    // User is not logged in, keep login functionality
+                    accountBtn.onclick = function() {
+                        window.location.href = 'login.html';
+                    };
+                    accountBtn.innerHTML = '<i class="fas fa-user"></i>';
+                }
+            }
+            
+            // Cart functionality
+            const cartCount = document.querySelector('.cart-count');
+            
+            // Load cart from localStorage and update count
+            function updateCartCount() {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                cartCount.textContent = totalItems;
+            }
+            
+            // Initialize
+            checkAuth();
+            updateCartCount();
+            
+            // Video play functionality
+            const playButton = document.querySelector('.play-button');
+            const aboutVideo = document.querySelector('.about-video video');
+            
+            playButton.addEventListener('click', function() {
+                if (aboutVideo.paused) {
+                    aboutVideo.play();
+                    this.style.opacity = '0';
+                } else {
+                    aboutVideo.pause();
+                    this.style.opacity = '1';
+                }
+            });
+            
+            // Newsletter form
+            const newsletterForm = document.querySelector('.newsletter-form');
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('.newsletter-input').value;
+                if (email) {
+                    alert('Thank you for subscribing!');
+                    this.querySelector('.newsletter-input').value = '';
+                }
+            });
+            
+            // Smooth scrolling for navigation links
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.main-header');
+                if (window.scrollY > 100) {
+                    header.style.backgroundColor = 'rgba(255,255,255,0.95)';
+                    header.style.backdropFilter = 'blur(10px)';
+                } else {
+                    header.style.backgroundColor = '#fff';
+                    header.style.backdropFilter = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

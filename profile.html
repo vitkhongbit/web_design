@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - Primo Cycles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background-color: #fff;
+            border-bottom: 1px solid #e5e5e5;
+            padding: 20px 0;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4ade80;
+            text-shadow: 1px 1px 0px #16a34a;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .left-nav {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        
+        .nav-link.active {
+            color: #000;
+            text-decoration: underline;
+        }
+        
+        .nav-link:hover {
+            color: #000;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .user-menu:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .user-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #f3f4f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+        }
+        
+        .dropdown-arrow {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 0;
+        }
+        
+        .content-container {
+            text-align: center;
+            max-width: 500px;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            text-align: left;
+            color: #000;
+        }
+        
+        .orders-card {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .no-orders-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #000;
+        }
+        
+        .no-orders-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .shop-now-btn {
+            background-color: #000;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .shop-now-btn:hover {
+            background-color: #333;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: #fff;
+            border-top: 1px solid #e5e5e5;
+            padding: 20px 0;
+            margin-top: auto;
+        }
+        
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .region-selector {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        
+        .region-selector i {
+            font-size: 16px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: #666;
+            text-decoration: underline;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .footer-link:hover {
+            color: #000;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .left-nav {
+                gap: 20px;
+            }
+            
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <a href="index.html" class="logo">Primos</a>
+            
+            <div class="left-nav">
+                <a href="products.html" class="nav-link">Shop</a>
+                <a href="profile.html" class="nav-link active">Orders</a>
+            </div>
+            
+            <div class="user-menu" onclick="toggleUserMenu()">
+                <div class="user-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <i class="fas fa-chevron-down dropdown-arrow"></i>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-container">
+                <h1 class="page-title">Orders</h1>
+                
+                <div class="orders-card">
+                    <h2 class="no-orders-title">No orders yet</h2>
+                    <p class="no-orders-subtitle">Go to store to place an order.</p>
+                    <a href="products.html" class="shop-now-btn">Shop Now</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <div class="region-selector">
+                <i class="fas fa-globe"></i>
+                <span>United States</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#" class="footer-link">Refund policy</a>
+                <a href="#" class="footer-link">Shipping</a>
+                <a href="#" class="footer-link">Privacy policy</a>
+                <a href="#" class="footer-link">Terms of service</a>
+                <a href="#" class="footer-link">Contact information</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        function toggleUserMenu() {
+            // Simple logout functionality
+            if (confirm('Do you want to logout?')) {
+                localStorage.removeItem('user');
+                localStorage.removeItem('cart');
+                window.location.href = 'login.html';
+            }
+        }
+        
+        // Check if user is logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = localStorage.getItem('user');
+            if (!user) {
+                // Redirect to login if not logged in
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html> 
