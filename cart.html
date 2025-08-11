@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -570,55 +570,16 @@
         </div>
     </footer>
     
+    <script src="shared.js"></script>
     <script>
         // Cart data structure
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let cart = getCart();
         
-        // Product data
-        const products = {
-            'Dame': {
-                name: 'Dame',
-                price: 899,
-                image: 'https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                colors: ['Grey Ash', 'Mustard', 'Metal Rhapsody']
-            },
-            'Mono': {
-                name: 'Mono',
-                price: 799,
-                image: 'https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                colors: ['Amazonian Blue', 'Dusty Rose']
-            },
-            'Framesets': {
-                name: 'Framesets',
-                price: 399,
-                image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                colors: ['Grey Ash', 'Metal Rhapsody', 'Mustard']
-            },
-            'Trail Master': {
-                name: 'Trail Master',
-                price: 1200,
-                image: 'https://images.unsplash.com/photo-1571068316344-75bc76f77890?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                colors: ['Midnight Black', 'Racing Red']
-            },
-            'Speed Demon': {
-                name: 'Speed Demon',
-                price: 950,
-                image: 'https://images.unsplash.com/photo-1532298229144-0ec0c57515c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                colors: ['Ocean Blue', 'Sunset Orange']
-            },
-            'Adventure Pro': {
-                name: 'Adventure Pro',
-                price: 1100,
-                image: 'https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-                colors: ['Forest Green', 'Royal Purple']
-            }
-        };
+        const products = window.productsData;
         
         // Update cart count
         function updateCartCount() {
-            const cartCount = document.querySelector('.cart-count');
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            cartCount.textContent = totalItems;
+            updateCartCountDom();
         }
         
         // Render cart items
@@ -667,7 +628,7 @@
             const newQuantity = cart[index].quantity + change;
             if (newQuantity >= 1) {
                 cart[index].quantity = newQuantity;
-                saveCart();
+                saveCart(cart);
                 renderCart();
             }
         }
@@ -677,7 +638,7 @@
             const quantity = parseInt(value);
             if (quantity >= 1) {
                 cart[index].quantity = quantity;
-                saveCart();
+                saveCart(cart);
                 renderCart();
             }
         }
@@ -685,7 +646,7 @@
         // Remove item
         function removeItem(index) {
             cart.splice(index, 1);
-            saveCart();
+            saveCart(cart);
             renderCart();
             updateCartCount();
         }
@@ -708,53 +669,24 @@
         }
         
         // Save cart to localStorage
-        function saveCart() {
-            localStorage.setItem('cart', JSON.stringify(cart));
+        function saveCart(updated) {
+            localStorage.setItem('cart', JSON.stringify(updated));
         }
         
         // Initialize cart
         document.addEventListener('DOMContentLoaded', function() {
-            // Check authentication
-            function checkAuth() {
-                const user = localStorage.getItem('user');
-                const accountBtn = document.querySelector('.account-btn');
-                
-                if (user) {
-                    // User is logged in, change account button to profile
-                    accountBtn.onclick = function() {
-                        window.location.href = 'profile.html';
-                    };
-                    accountBtn.innerHTML = '<i class="fas fa-user"></i>';
-                } else {
-                    // User is not logged in, keep login functionality
-                    accountBtn.onclick = function() {
-                        window.location.href = 'login.html';
-                    };
-                    accountBtn.innerHTML = '<i class="fas fa-user"></i>';
-                }
-            }
-            
-            checkAuth();
+            initCommonHeader();
             renderCart();
             updateCartCount();
             
             // Header scroll effect
-            window.addEventListener('scroll', function() {
-                const header = document.querySelector('.main-header');
-                if (window.scrollY > 100) {
-                    header.style.backgroundColor = 'rgba(255,255,255,0.95)';
-                    header.style.backdropFilter = 'blur(10px)';
-                } else {
-                    header.style.backgroundColor = '#fff';
-                    header.style.backdropFilter = 'none';
-                }
-            });
+            // Already initialized in initCommonHeader
             
             // Checkout button
             document.getElementById('checkoutBtn').addEventListener('click', function() {
                 alert('Thank you for your order! This is a demo site.');
                 cart = [];
-                saveCart();
+                saveCart(cart);
                 renderCart();
                 updateCartCount();
             });

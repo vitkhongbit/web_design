@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -597,53 +597,13 @@
         </div>
     </footer>
     
+    <script src="shared.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Check authentication
-            function checkAuth() {
-                const user = localStorage.getItem('user');
-                const accountBtn = document.querySelector('.account-btn');
-                
-                if (user) {
-                    // User is logged in, change account button to profile
-                    accountBtn.onclick = function() {
-                        window.location.href = 'profile.html';
-                    };
-                    accountBtn.innerHTML = '<i class="fas fa-user"></i>';
-                } else {
-                    // User is not logged in, keep login functionality
-                    accountBtn.onclick = function() {
-                        window.location.href = 'login.html';
-                    };
-                    accountBtn.innerHTML = '<i class="fas fa-user"></i>';
-                }
-            }
-            
-            // Cart functionality
-            const cartCount = document.querySelector('.cart-count');
-            
-            // Load cart from localStorage and update count
-            function updateCartCount() {
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
-                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-                cartCount.textContent = totalItems;
-            }
-            
-            // Initialize
-            checkAuth();
-            updateCartCount();
+            initCommonHeader();
             
             // Header scroll effect
-            window.addEventListener('scroll', function() {
-                const header = document.querySelector('.main-header');
-                if (window.scrollY > 100) {
-                    header.style.backgroundColor = 'rgba(255,255,255,0.95)';
-                    header.style.backdropFilter = 'blur(10px)';
-                } else {
-                    header.style.backgroundColor = '#fff';
-                    header.style.backdropFilter = 'none';
-                }
-            });
+            // Already initialized by initCommonHeader
             
             // Smooth scrolling for navigation links
             const navLinks = document.querySelectorAll('a[href^="#"]');
